@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import "../node_modules/bootstrap/dist/css/bootstrap.css";
+import "../node_modules/bootstrap/dist/js/bootstrap.js";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Navbar from "./pages/Navbar";
+import Login from "./pages/Login";
+import CreatePost from "./pages/CreatePost";
+import { useState } from "react";
 function App() {
+  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth "));
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar isAuth={isAuth} setIsAuth={setIsAuth} />
+      <Routes>
+        <Route path="/" element={<Home isAuth={isAuth} />} />
+        <Route path="/createpost" element={<CreatePost isAuth={isAuth} />} />
+        <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
+      </Routes>
+    </>
   );
 }
 
